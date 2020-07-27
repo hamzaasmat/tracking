@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+    {{data.message}}
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th *ngFor="let item of data.key">
+                        {{item.caption}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data.value">
+                    <td *ngFor="let col of data.key">
+                        {{item[col.key]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+    <button mat-button *ngIf="data.action == true" (click)="submit()">Yes!</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+</div>

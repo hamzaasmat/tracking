@@ -1,0 +1,65 @@
+<table class="table">
+    <thead>
+        <tr>
+            <td *ngFor="let item of Columns">{{item.displayName}}</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of newArr;let i = index" [ngClass]="indexMatched == i ? 'active':''">
+            <td *ngFor="let column of Columns">
+
+                <div *ngIf="column.value == 'action'">
+                    <ng-container [ngTemplateOutlet]="data" [ngTemplateOutletContext]="{item: item, index: i}">
+                    </ng-container>
+                </div>
+
+                <div *ngIf="column.pipe">
+                    {{item[column.value] | dynamicPipe: column.pipe:column.pipeArgs}}
+                </div>
+                <div *ngIf="column.type == 'customValue'">
+                    {{column.customValue}}
+                </div>
+                <div *ngIf="!column.pipe">
+                    <div *ngIf="column.type == 'string' || column.type == 'number'">
+                        {{item[column.value]}}
+                    </div>
+                    <div *ngIf="column.type == 'button'">
+                        <button [color]="column.color? column.color: 'primary'" mat-button (click)="clickBtn(i, item)">
+                            <mat-icon *ngIf="column.icon">{{column.icon}}</mat-icon>
+                            <img *ngIf="column.image" [src]="column.image" />
+                            {{!column.icon && !column.image? column.value: ''}}
+                        </button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="table-controls">
+    <div class="col-md-2">
+        <div *ngIf="newArr.length >= 10">
+            <mat-form-field matTooltip="Records per page" matTooltipPosition="above">
+                <mat-select [(ngModel)]="itemsPerPage" (selectionChange)="createCurPage()">
+                    <mat-option *ngFor="let item of recordsPerPage" [value]="item.num">{{item.num}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div class="col-md-7 text-center dec">
+        showing <strong>{{newArr.length}}</strong>
+        enteries of <strong>{{Rows.length}}</strong>
+        pages <strong>{{totalPages}}</strong>
+    </div>
+    <div class="col-md-3 text-right">
+        <button mat-mini-fab color="primary" matTooltip="Previous" matTooltipPosition="above" [disabled]="curPage == 0"
+            (click)="decrementPage()" style="margin-right: 1em;">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button mat-mini-fab color="primary" matTooltip="Next" matTooltipPosition="above"
+            [disabled]="curPage == (totalPages-1)" (click)="incrementPage()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+</div>

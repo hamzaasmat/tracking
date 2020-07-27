@@ -1,0 +1,29 @@
+.color {
+  box-shadow: 0 9px 20px rgba(0, 0, 0, 0.4);
+}
+.arrow {
+  transition: 0.3s all;
+}
+.arrowDown {
+  transform: rotate(90deg);
+}
+.arrowUp {
+  transform: rotate(0deg);
+}
+.map {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 49%;
+  transform: translateX(-50%);
+  @media screen and (max-width:800px){
+    width: 100% !important;
+  }
+}
+
+.add-device {
+  position: absolute;
+  bottom: 5em;
+  right: -3.5em;
+  z-index: 12;
+}

@@ -1,0 +1,54 @@
+.floating-panel {
+  position: absolute;
+  top: 20px;
+  left: 100%;
+  background: #fff;
+  width: 80%;
+  border-radius: 10px;
+  height: auto;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 20px 28px -20px rgba(0, 0, 0, 0.3) !important;
+  // border: 4px solid #ddd;
+  .floating-panel-header {
+    display: flex;
+    //   padding: 0 1em;
+    align-items: center;
+    border-bottom: 1px solid #ececec;
+    .spacer {
+      flex: 1 1 auto;
+    }
+    .title {
+      padding-left: 1em;
+    }
+  }
+  .floating-panel-body {
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .attr-list {
+      display: flex;
+      align-items: center;
+      padding: 0.2em 1em;
+      font-size: 12px;
+      span {
+        margin-right: 1em;
+        color: rgb(148, 148, 148);
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+}
+
+.hide {
+  width: 40px !important;
+}
+
+.toggle {
+  width: 40px; 
+  height: 30px; 
+  line-height: 30px;
+}

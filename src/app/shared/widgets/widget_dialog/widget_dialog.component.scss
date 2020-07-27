@@ -1,0 +1,23 @@
+mat-dialog-content {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+.table {
+  width: 100%;
+  thead {
+    tr {
+      th {
+        width: 8em;
+        font-size: 14px;
+        text-align: left;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        font-size: 12px;
+      }
+    }
+  }
+}

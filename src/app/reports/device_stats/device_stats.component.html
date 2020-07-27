@@ -1,0 +1,48 @@
+<div class="infoBox m-1">
+    <div class="infoBoxTitle">
+        <div class="infoBoxStatus"></div>
+        <span>
+            Statistics
+            <small>For all devices</small>
+        </span>
+        <span class="space"></span>
+        <span>
+            <mat-icon class="primary">trending_up</mat-icon>
+        </span>
+    </div>
+    <div class="row" style="padding: 0 1em;">
+        <div class="col-md-6 col-6">
+            <div class="replacedField" (click)="getFromDate()">
+                <div class="title">
+                    From
+                </div>
+                <small
+                    class="text-sm">{{(valueSelectedFromDate ? (valueSelectedFromDate | date:'short') : 'Select Date' )}}</small>
+                <div class="icon">
+                    <mat-icon color="primary" class="primary">keyboard_arrow_right</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-6">
+            <div class="replacedField" (click)="getToDate()">
+                <div class="title">
+                    To
+                </div>
+                <small
+                    class="text-sm">{{(valueSelectedToDate ? (valueSelectedToDate | date:'short') : 'Select Date' )}}</small>
+                <div class="icon">
+                    <mat-icon color="primary" class="primary">keyboard_arrow_right</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 text-right">
+            <button type="button" [disabled]="!valueSelectedFromDate && !valueSelectedToDate" mat-button color="primary"
+                (click)="getStats()">
+                Get Stats
+                <mat-icon class="primary">trending_flat</mat-icon>
+            </button>
+        </div>
+    </div>
+    <mat-progress-bar mode="query" *ngIf="isLoadingModal == true" color="primary">
+    </mat-progress-bar>
+</div>

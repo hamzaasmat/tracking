@@ -1,0 +1,27 @@
+export interface UserData {
+    id?: number,
+    name?: string,
+    login?: string,
+    email: string,
+    password?: string,
+    attributes?: {
+        speedUnit: string
+    },
+    phone?: any,
+    readonly?: boolean,
+    administrator?: boolean,
+    map?: string,
+    latitude?: number,
+    longitude?: number,
+    zoom?: number,
+    twelveHourFormat?: boolean,
+    coordinateFormat?: string,
+    disabled?: boolean,
+    expirationTime?: string,
+    deviceLimit?: number,
+    userLimit?: number,
+    deviceReadonly?: boolean,
+    token?: string,
+    limitCommands?: boolean,
+    poiLayer?: string,
+}

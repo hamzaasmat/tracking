@@ -1,0 +1,331 @@
+
+<div class="scrollBar">
+    <div class="allDevicesPanel" [ngClass]="enabledNavLeft == true ? 'allDevicesPanelShow':''">
+        <!-- <mat-progress-bar mode="query" *ngIf="isLoading == true" color="warn"></mat-progress-bar> -->
+        <div class="searchFilter">
+            <div class="filter">
+                <mat-icon>search</mat-icon>
+                <input type="search" placeholder="search" (keyup)="search($event.target.value)">
+            </div>
+        </div>
+        <button class="add-device" matTooltip="Add a new Device" matTooltipPosition="above" mat-mini-fab
+            (click)="addDevice()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <attributes [deviceAttributesId]="deviceAttributesId"></attributes>
+        <div class="tabs">
+            <mat-tab-group>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        All
+                    </ng-template>
+                    <ng-template matTabContent>
+                        <div class="allDevicePanelBody">
+                            <div *ngFor="let item of allDevices; let i = index">
+                                <div class="list" matRipple matRippleColor="#9ba5f757" @fadeAnimation #area
+                                    [ngClass]="isIndexMatched == i ? 'active-list':''" (click)="areaPressed(i)"
+                                    [ngClass]="isIndexMatched == i ? '':''" aria-pressed="false">
+                                    <div class="listIcon ">
+                                        <mat-icon class="accent" color="accent" *ngIf="item.category == 'motorcycle'">
+                                            motorcycle
+                                        </mat-icon>
+                                        <mat-icon class="primary" *ngIf="item.category == 'car'">directions_car
+                                        </mat-icon>
+                                        <mat-icon class="warn" color="warn" *ngIf="item.category == null">my_location
+                                        </mat-icon>
+                                    </div>
+                                    <div class="listItem-1">
+                                        <div class="listStack">
+                                            {{item.name}}
+                                            <div class="subItem">
+                                                <small>
+                                                    <span *ngIf="item.lastUpdate != ''">
+                                                        {{item.lastUpdate | date:'short'}}
+                                                    </span>
+                                                    <span color="warn" *ngIf="item.lastUpdate == null">
+                                                        Not found
+                                                    </span>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="listItem-2">
+                                        <mat-icon color="primary" class="primary arrow"
+                                            [ngClass]="isIndexMatched == i ? 'arrowDown':'arrowUp'">
+                                            keyboard_arrow_right
+                                        </mat-icon>
+                                    </div>
+                                </div>
+                                <div *ngIf="isIndexMatched == i" class="listParent">
+                                    <div class="listChild">
+                                        <span>
+                                            <button mat-raised-button (click)="openBottomSheet(item)" color="primary">
+                                                <mat-icon>timeline</mat-icon>
+                                                Report
+                                            </button>
+                                        </span>
+                                        <span>
+                                            <button [disabled]="item.lastUpdate == null" mat-button class="warn"
+                                                color="warn" (click)="getCordinates(item)">
+                                                <mat-icon class="warn">track_changes</mat-icon>
+                                                <span class="warn">Track</span>
+                                                <mat-icon class="warn">trending_flat</mat-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="listChild">
+                                        <span>
+                                            <button disabled matTooltip="Edit Device" color="primary"
+                                                matTooltipPosition="above" mat-mini-fab (click)="updateDevice(item)">
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                        </span>
+                                        <span>
+                                            <button matTooltip="Delete Device" disabled color="warn"
+                                                matTooltipPosition="above" mat-mini-fab (click)="deleteDevice(item.id)">
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="notFound" *ngIf="item.lastUpdate == null">Co-ordinates are not available
+                                        for this device</div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        Online
+                    </ng-template>
+                    <ng-template matTabContent>
+                        <div class="allDevicePanelBody">
+                            <div *ngFor="let item of onlineDevices; let i = index">
+                                <div class="list" @fadeAnimation #area
+                                    [ngClass]="isIndexMatched == i ? 'active-list':''" (click)="areaPressed(i)"
+                                    [ngClass]="isIndexMatched == i ? '':''" aria-pressed="false">
+                                    <!-- <div class="infoBoxStatus"></div> -->
+                                    <div class="listIcon ">
+                                        <!-- <img src="../../assets/images/car2.png" width="20" *ngIf="item.category == 'car'"> -->
+                                        <!-- <img src="../../assets/images/scooty3.png" width="20" *ngIf="item.category == 'motorcycle'"> -->
+                                        <!-- <img src="../../assets/images/navigation.png" width="50" *ngIf="item.category == 'null'"> -->
+                                        <mat-icon class="accent" color="accent" *ngIf="item.category == 'motorcycle'">
+                                            motorcycle
+                                        </mat-icon>
+                                        <mat-icon class="primary" *ngIf="item.category == 'car'">directions_car
+                                        </mat-icon>
+                                        <mat-icon class="warn" color="warn" *ngIf="item.category == null">my_location
+                                        </mat-icon>
+                                    </div>
+                                    <div class="listItem-1">
+                                        <div class="listStack">
+                                            {{item.name}}
+                                            <div class="subItem">
+                                                <small>
+                                                    <span *ngIf="item.lastUpdate != ''">
+                                                        {{item.lastUpdate | date:'short'}}
+                                                    </span>
+                                                    <span color="warn" *ngIf="item.lastUpdate == null">
+                                                        Not found
+                                                    </span>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="listItem-2">
+                                        <mat-icon color="primary" class="primary arrow"
+                                            [ngClass]="isIndexMatched == i ? 'arrowDown':'arrowUp'">
+                                            keyboard_arrow_right
+                                        </mat-icon>
+                                    </div>
+                                </div>
+                                <div *ngIf="isIndexMatched == i" class="listParent">
+                                    <div class="listChild">
+                                        <span>
+                                            <button mat-raised-button (click)="openBottomSheet(item)" color="primary">
+                                                <mat-icon>timeline</mat-icon>
+                                                Report
+                                            </button>
+                                        </span>
+                                        <span>
+                                            <button [disabled]="item.lastUpdate == null" mat-button class="warn"
+                                                color="warn" (click)="getCordinates(item)">
+                                                <mat-icon class="warn">track_changes</mat-icon>
+                                                <span class="warn">Track</span>
+                                                <mat-icon class="warn">trending_flat</mat-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="notFound" *ngIf="item.lastUpdate == null">Co-ordinates are not available
+                                        for this device</div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        Offline
+                    </ng-template>
+                    <ng-template matTabContent>
+                        <div class="allDevicePanelBody">
+                            <div *ngFor="let item of offlineDevices; let i = index">
+                                <div class="list" @fadeAnimation #area
+                                    [ngClass]="isIndexMatched == i ? 'active-list':''" (click)="areaPressed(i)"
+                                    [ngClass]="isIndexMatched == i ? '':''" aria-pressed="false">
+                                    <!-- <div class="infoBoxStatus"></div> -->
+                                    <div class="listIcon ">
+                                        <!-- <img src="../../assets/images/car2.png" width="20" *ngIf="item.category == 'car'"> -->
+                                        <!-- <img src="../../assets/images/scooty3.png" width="20" *ngIf="item.category == 'motorcycle'"> -->
+                                        <!-- <img src="../../assets/images/navigation.png" width="50" *ngIf="item.category == 'null'"> -->
+                                        <mat-icon class="accent" color="accent" *ngIf="item.category == 'motorcycle'">
+                                            motorcycle
+                                        </mat-icon>
+                                        <mat-icon class="primary" *ngIf="item.category == 'car'">directions_car
+                                        </mat-icon>
+                                        <mat-icon class="warn" color="warn" *ngIf="item.category == null">my_location
+                                        </mat-icon>
+                                    </div>
+                                    <div class="listItem-1">
+                                        <div class="listStack">
+                                            {{item.name}}
+                                            <div class="subItem">
+                                                <small>
+                                                    <span *ngIf="item.lastUpdate != ''">
+                                                        {{item.lastUpdate | date:'short'}}
+                                                    </span>
+                                                    <span color="warn" *ngIf="item.lastUpdate == null">
+                                                        Not found
+                                                    </span>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="listItem-2">
+                                        <mat-icon color="primary" class="primary arrow"
+                                            [ngClass]="isIndexMatched == i ? 'arrowDown':'arrowUp'">
+                                            keyboard_arrow_right
+                                        </mat-icon>
+                                    </div>
+                                </div>
+                                <div *ngIf="isIndexMatched == i" class="listParent">
+                                    <div class="listChild">
+                                        <span>
+                                            <button mat-raised-button (click)="openBottomSheet(item)" color="primary">
+                                                <mat-icon>timeline</mat-icon>
+                                                Report
+                                            </button>
+                                        </span>
+                                        <span>
+                                            <button [disabled]="item.lastUpdate == null" mat-button class="warn"
+                                                color="warn" (click)="getCordinates(item)">
+                                                <mat-icon class="warn">track_changes</mat-icon>
+                                                <span class="warn">Track</span>
+                                                <mat-icon class="warn">trending_flat</mat-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="notFound" *ngIf="item.lastUpdate == null">Co-ordinates are not available
+                                        for this device</div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+
+
+        <div *ngIf="allDevices.length == 0">No Device Found</div>
+    </div>
+</div>
+<div class="setCustomHeight">
+    <div class="map">
+        <com-map></com-map>
+    </div>
+</div>
+<div class="scrollBar">
+    <div class="sideBarRight" [ngClass]="enabledNav == true ? 'navActive':''">
+        <!-- <mat-progress-bar mode="query" *ngIf="isLoading == true" color="warn"></mat-progress-bar> -->
+        <div class="">
+            <widget-clock [isBackground]="true"></widget-clock>
+            <div class="infoBox m-1">
+                <div class="infoBoxTitle" (click)="example()">
+                    <div class="infoBoxStatus"></div>
+                    <span>
+                        All Vehicles
+                        <small>Counter of total vehicles</small>
+                    </span>
+                    <span class="space"></span>
+                    <span>
+                        {{allDevices.length}}
+                    </span>
+                </div>
+                <!-- <div class="infoBoxBody">
+                    <span> <h2>{{allDevices.length}}</h2> </span>
+                </div> -->
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6 col-sm-6 col-6">
+                    <div class="infoBox ml-1">
+                        <div class="infoBoxTitle">
+                            <div class="infoBoxStatus"></div>
+                            <span>Offline
+                                <small>Vehicle</small>
+                            </span>
+                            <span class="space"></span>
+                            <span>
+                                {{offlineDevices.length}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-6">
+                    <div class="infoBox mr-1">
+                        <div class="infoBoxTitle">
+                            <div class="infoBoxStatus"></div>
+                            <span>Online
+                                <small>Vehicles</small>
+                            </span>
+                            <span class="space"></span>
+                            <span>
+                                {{onlineDevices.length}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="infoBox m-1">
+                        <div class="infoBoxTitle">
+                            <div class="infoBoxStatus"></div>
+                            <span>
+                                Max. Distance
+                                <small>Coverd by</small>
+                            </span>
+                            <span class="space"></span>
+                            <span>
+                                <mat-icon class="primary">merge_type</mat-icon>
+                            </span>
+                        </div>
+                        <div class="infoBoxBody">
+                            <span *ngIf="isLoading == false">
+                                <small><b>Name:</b>
+                                    {{MaxDistanceDeviceName ? MaxDistanceDeviceName: 'Not Found'}}</small>
+                                <br>
+                                <small><b>Distance:</b> {{largest | distanceConvertor}}</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <device-stats></device-stats>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="login-container">
+    <div class="login-container-info-section" [ngClass]="hideSection == true ? 'hide-info-section':''">
+        <img src="../../../assets/images/bg.png" class="" alt="">
+        <h3 class="title-main">Tracking <span>System</span></h3>
+        <h3 class="section-title">Portal to track your vehicle</h3>
+    </div>
+    <div class="login-container-form-section">
+        <!-- <button (click)="hideSectionInfo()">
+            {{hideSection == true ? 'show':'hide'}}
+        </button> -->
+        <form name="frm" #frm="ngForm">
+            <div class="login-form">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title animated bounceInDown">
+                            Welcome !
+
+                        </div>
+                        <div class="title-sub animated bounceInDown">
+                            Sign in to your account
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- <label for="">Email</label> -->
+
+                        <div class="form-group"
+                            [ngClass]="email.invalid && (email.dirty || email.touched) ? 'animated shake':''">
+                            <div [ngStyle]="animationStyle" class="animated-icon">
+                                <mat-icon color="warn">motorcycle</mat-icon>
+                            </div>
+                            <mat-icon>person_outline</mat-icon>
+                            <input type="text" placeholder="Email" (keyup)="onChng()" autocomplete="off" name="email"
+                                class="form-control" #email="ngModel" [(ngModel)]="userData.email" required>
+                        </div>
+
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-msg animated fadeIn">
+
+                            <div *ngIf="email.errors.required">
+                                Email is required.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- <label for="">Email</label> -->
+                        <div class="form-group"
+                            [ngClass]="password.invalid && (password.dirty || password.touched) ? 'animated shake':''">
+                            <div [ngStyle]="{'left.em': userData.password.length}" class="animated-icon">
+                                <mat-icon color="warn">motorcycle</mat-icon>
+                            </div>
+                            <mat-icon>lock_open</mat-icon>
+                            <input [type]="show == false ? 'password' : 'text'" placeholder="Password"
+                                class="form-control" name="password" #password="ngModel" [(ngModel)]="userData.password"
+                                required>
+
+                            <fa [name]="show == false ? 'eye':'eye-slash'" (click)="showPassword()" class="icon"></fa>
+                        </div>
+
+                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-msg">
+
+                            <div *ngIf="password.errors.required">
+                                Password is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="color: #fff; font-size: 12px; margin-top: 1em;">
+                        <mat-checkbox>Remember me</mat-checkbox>
+                    </div>
+                </div>
+                <button mat-button type="submit" class="btn-login"
+                    [disabled]="!email.valid && !password.valid" (click)="login()">Sign in</button>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<app-loader></app-loader>

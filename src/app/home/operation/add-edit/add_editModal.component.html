@@ -1,0 +1,106 @@
+<div mat-dialog-title>
+    <div class="row">
+        <div class="col-md-6">
+            <span>{{mode =='add'? 'Add': 'Edit'}} Device {{disabled}}</span>
+        </div>
+        <div class="col-md-6 text-right">
+            <button mat-icon-button (click)="cancel()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+<form name="config" #config="ngForm">
+    <mat-dialog-content class="mat-typography" style="height:400px;overflow: auto;">
+        <mat-tab-group animationDuration="0ms">
+            <mat-tab label="Required">
+                <div class="row" style="margin-right: 0 !important; padding-top: 1em;">
+                    <div class="col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Name</mat-label>
+                            <input matInput pattern="^\S{1,}.{0,}$" autocomplete="off" name="deviceName" #deviceName="ngModel"
+                                [(ngModel)]="AddEditModelData.name" required>
+                        </mat-form-field>
+                        <div *ngIf="deviceName.errors && (deviceName.dirty || deviceName.touched)">
+                            <div *ngIf="deviceName.errors.required">Name of device cannot be empty</div>
+                            <div *ngIf="deviceName.errors.pattern">Name cannot start with a space</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Identifier</mat-label>
+                            <input matInput type="number" autocomplete="off" name="identifier" #identifier="ngModel"
+                                [(ngModel)]="AddEditModelData.uniqueId" required>
+                        </mat-form-field>
+                        <div class="has-error" *ngIf="identifier.errors && (identifier.dirty || identifier.touched)">
+                            <div *ngIf="identifier.errors.required">Identifier of device cannot be empty</div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Extra">
+                <mat-grid-list cols="3" gutterSize="1em" rowHeight="2:1">
+                    <mat-grid-tile>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Model</mat-label>
+                            <input matInput autocomplete="off" [(ngModel)]="AddEditModelData.model"
+                                [name]="AddEditModelData.model">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Contact</mat-label>
+                            <input matInput autocomplete="off" [(ngModel)]="AddEditModelData.contact">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field>
+                            <mat-label>Select Category</mat-label>
+                            <mat-select [(value)]="AddEditModelData.category">
+                                <mat-option *ngFor="let category of categories" [value]="category">{{category}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Group</mat-label>
+                            <input matInput autocomplete="off">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Phone</mat-label>
+                            <input matInput autocomplete="off">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-checkbox [(ngModel)]="disabled" (change)="isDisabledDevice()">Disabled</mat-checkbox>
+                    </mat-grid-tile>
+
+                </mat-grid-list>
+            </mat-tab>
+            <mat-tab label="Attributes">
+                <mat-grid-list cols="3" gutterSize="1em" rowHeight="4:3">
+                    <mat-grid-tile>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Name</mat-label>
+                            <input matInput autocomplete="off">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Value</mat-label>
+                            <input matInput autocomplete="off">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button color="warn" (click)="cancel()">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!config.form.valid"
+            (click)="mode == 'add' ? addDevice(): editDevice()">Submit</button>
+    </mat-dialog-actions>
+</form>

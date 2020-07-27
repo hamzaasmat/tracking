@@ -1,0 +1,17 @@
+agm-map {
+  height: 300px;
+}
+.title-layer {
+  position: absolute;
+  border-radius: 20px;
+  top: 7px;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-size: 12px;
+  padding: 4px 14px;
+  color: #fff;
+  width: auto;
+  background: rgba(63, 81, 181, 0.7);
+}

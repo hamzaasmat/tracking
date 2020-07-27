@@ -1,0 +1,85 @@
+<div class="bottomSheetHeader">
+    <span class="title">
+        <mat-icon>assignment</mat-icon> Report Configuration
+    </span>
+    <span class="autoFillSpace"></span>
+    <button mat-button style="text-align: right; padding: 0;" (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<form name="frm" #frm="ngForm">
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Select report type</mat-label>
+                <mat-select [(value)]="reportTypeVal">
+                    <mat-option *ngFor="let type of reportTypes" [value]="type.url">{{type.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Select time period</mat-label>
+                <mat-select [(value)]="reportTimeVal"
+                    (selectionChange)="enableCustomFrm()">
+                    <mat-option *ngFor="let item of reportTimePeriod" [value]="item">{{item.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+    </div>
+    <div class="row" *ngIf="enableCustomForm == true">
+        <div class="col-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Date From" name="dateFrom" #dateFrom="ngModel" [matDatepicker]="from"
+                    [(ngModel)]="deviceConfig.from" required>
+                <mat-hint *ngIf="dateFrom.errors && (dateFrom.dirty || dateFrom.touched)">
+                    <span *ngIf="dateFrom.errors.required">Date from is required</span>
+                </mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                <mat-datepicker #from></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="example-full-width">
+                <input matInput type="time" name="timeFromInput" #timeFromInput="ngModel" placeholder="Time From"
+                    [(ngModel)]="timeFrom" required>
+                <mat-hint *ngIf="timeFromInput.errors && (timeFromInput.dirty || timeFromInput.touched)">
+                    <span *ngIf="timeFromInput.errors.required">Time from is required</span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Date To" name="dateTo" #dateTo="ngModel" [matDatepicker]="picker"
+                    [(ngModel)]="deviceConfig.to" required>
+                <mat-hint *ngIf="dateTo.errors && (dateTo.dirty || dateTo.touched)">
+                    <span *ngIf="dateTo.errors.required">Date to is required</span>
+                </mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+
+            <mat-form-field class="example-full-width">
+                <input matInput type="time" name="timeToInput" #timeToInput="ngModel" placeholder="Time To"
+                    [(ngModel)]="timeTo" required>
+                <mat-hint *ngIf="timeToInput.errors && (timeToInput.dirty || timeToInput.touched)">
+                    <span *ngIf="timeToInput.errors.required">Time To is required</span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button mat-button type="submit" [disabled]="!frm.valid" (click)="getConfig()">Generate Report <mat-icon>
+                    arrow_right_alt
+                </mat-icon></button>
+        </div>
+    </div>
+</form>
+<mat-progress-bar mode="query" *ngIf="isLoading == true"></mat-progress-bar>

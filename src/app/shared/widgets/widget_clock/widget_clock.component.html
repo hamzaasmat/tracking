@@ -1,0 +1,35 @@
+<span class="clock" 
+[ngClass]="isBackground == true ? 'clock-bg isMargin':''" 
+(click)="enableWeather()">
+    <div class="hours">
+        <small>{{liveHoures ? liveHoures : '00'}}</small>
+        <small>Hours</small>
+    </div>
+    <span class="colon">:</span>
+    <div class="min">
+        <small>{{liveMin ? liveMin : '00'}}</small>
+        <small>Minutes</small>
+    </div>
+    <span class="colon">:</span>
+    <div class="sec">
+        <small>{{liveSec ? liveSec : '00'}}</small>
+        <small>seconds</small>
+    </div>
+    <div class="sec">
+        <small>{{liveAmPm}}</small>
+        <small></small>
+    </div>
+</span>
+<div class="weather-info" *ngIf="isWeatherEnabled == true">
+    <div class="widgettemp">
+        <span class="temp">
+            {{weatherData.temp}}
+        </span>
+        <span class="img">
+            <img [src]="weatherData.icon" alt="">
+        </span>
+        <span class="dec">
+            {{weatherData.dec}}
+        </span>
+    </div>
+</div>

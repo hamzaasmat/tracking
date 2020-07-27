@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- <div class="col-md-6"> -->
+            <!-- <div class="map-view">
+                <agm-map [latitude]="curMarker? curMarker.lat: lat" [styles]="mode"
+                    [longitude]="curMarker? curMarker.lng: lng" [zoom]="zoom" [disableDefaultUI]="false"
+                    [zoomControl]="false" [styles]="mode" (clicked)="getMode($event)">
+                    <agm-overlay *ngIf="curMarker" [latitude]="curMarker.lat" [longitude]="curMarker.lng">
+                        <div class="">
+                            <mat-icon color="primary">room</mat-icon>
+                        </div>
+                    </agm-overlay>
+                    <agm-polyline *ngFor="let point of latLng;let i = index;" [strokeColor]="'#a1aafb'">
+
+                        <agm-polyline-point [latitude]="point.lat" [longitude]="point.lng">
+                        </agm-polyline-point>
+                        <ng-container *ngIf="latLng[i+1]">
+                            <agm-polyline-point [latitude]="latLng[i+1].lat" [longitude]="latLng[i+1].lng">
+                            </agm-polyline-point>
+                        </ng-container>
+                    </agm-polyline>
+
+                </agm-map>
+
+                <div class="info-layer">
+                    <div>
+                        {{curMarker ? curMarker.address : 'Select records to view address & location'}}
+                    </div>
+                </div>
+            </div> -->
+        <!-- </div> -->
+        <div class="col-md-12">
+            <h3 class="device-name"><small></small>Trips {{name}} </h3>
+            <widget-table [Columns]="column" [Rows]="deviceTripsDetail"
+                [indexMatched]="indexMatched">
+            </widget-table>
+        </div>
+    </div>
+</div>

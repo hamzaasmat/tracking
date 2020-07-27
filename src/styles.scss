@@ -1,0 +1,150 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "@angular/material/prebuilt-themes/purple-green.css";
+@import "~@angular/material/theming";
+@import "~material-community-components/theming";
+
+@include mat-core();
+$primary: #3f51b5 !important;
+$warn: #f44336 !important;
+$accent: #ff4081 !important;
+.unicorn-dark-theme {
+  $dark-primary: mat-palette($mat-indigo);
+  $dark-accent: mat-palette($mat-amber, A900, A800, A700);
+  $dark-warn: mat-palette($mat-deep-orange);
+  $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+  @include mcc-theme($dark-theme);
+  mat-progress-bar .mat-progress-bar-buffer {
+    background: #303030 !important;
+  }
+  .mat-simple-snackbar {
+    span {
+      color: #303030 !important;
+    }
+  }
+
+  .content {
+    background: transparent !important;
+  }
+  .infoBoxStatus {
+    background: $primary;
+  }
+  .infoBoxTitle {
+    small {
+      color: #808080 !important;
+    }
+  }
+  .subItem {
+    small {
+      span {
+        color: #808080 !important;
+      }
+    }
+  }
+  .table {
+    tbody {
+      tr {
+        background: #383838 !important;
+      }
+    }
+  }
+  .floating-panel {
+    background: #383838 !important;
+    .floating-panel-header {
+      border-color: #303030 !important;
+    }
+  }
+  .primary {
+    color: $primary;
+  }
+  .warn {
+    color: $warn;
+  }
+  .accent {
+    color: $accent;
+  }
+  .text-sm {
+    color: #808080 !important;
+  }
+  .username {
+    color: #fff !important;
+    // background: $primary !important;
+  }
+  .active-list {
+    background: #202020 !important;
+  }
+  .active-list {
+    &:before {
+      // content: "";
+      // position: absolute;
+      // top: 50%;
+      border: 3px solid #3f51b5 !important;
+      // transform: translateY(-50%);
+      left: -7px !important;
+      background: #202020 !important;
+      width: 15px !important;
+      box-shadow: 0 0 10px #3f51b5;
+      height: 15px !important;
+      // border-radius: 50%;
+    }
+  }
+  .login-container {
+    .login-container-form-section {
+      background: #383838 !important;
+      .form-group {
+        .form-control {
+          background: #303030 !important;
+          outline: none !important;
+        }
+      }
+    }
+  }
+
+  .list,
+  .infoBox {
+    background: #383838;
+  }
+  .filter {
+    background: #383838 !important;
+    input {
+      background: transparent !important;
+    }
+  }
+  .allDevicesPanel,
+  .sideBarRight {
+    background: #303030 !important;
+    // background: transparent !important;
+    // border-right: 1px solid #262626;
+  }
+  body,
+  html,
+  * {
+    color: rgb(216, 216, 216) !important;
+  }
+  .scrollBar {
+    ::-webkit-scrollbar-thumb {
+      background: #262626 !important;
+    }
+  }
+  // .mat-app-background {
+  //   background: linear-gradient(-43deg, #292929, #222) !important;
+  // }
+}
+@import "assets/styles/index.scss";
+// html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
+}
+.text-sm {
+  color: #c5c5c5;
+}
+.mat-app-background {
+  width: 100%;
+  height: 100vh;
+}
+.lightnav {
+  background: #fff !important;
+  color: #000 !important;
+}

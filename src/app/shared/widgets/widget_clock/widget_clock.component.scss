@@ -1,0 +1,30 @@
+.weather-info {
+  background: transparent;
+  margin: -14px 1em 1em 1em;
+  font-family: "Montserrat";
+  /* width: 100%; */
+  box-sizing: border-box;
+  //   color: #fff;
+  .widgettemp {
+    position: relative;
+    padding: 1em;
+    overflow: hidden;
+    .temp {
+      font-size: 2em;
+      margin-left: 1.2em;
+    }
+    .img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      img {
+        width: 68px;
+      }
+    }
+    .dec {
+      position: absolute;
+      right: 10px;
+      top: 1.5em;
+    }
+  }
+}
